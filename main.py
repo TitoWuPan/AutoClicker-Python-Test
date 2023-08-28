@@ -35,6 +35,23 @@ def Click(pos):
     win32api.SendMessage(window, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, tmp) 
     win32api.SendMessage(window, win32con.WM_LBUTTONUP, None, tmp)
 
+def Click_time(pos, time = 5000):
+    global window
+    client_pos = win32gui.ScreenToClient(win32gui.WindowFromPoint(pos), pos)
+    tmp = win32api.MAKELONG(client_pos[0], client_pos[1])
+    win32api.SendMessage(window, win32con.WM_LBUTTONDOWN, win32con.MK_LBUTTON, tmp) 
+    # win32api.SendMessage(window, win32con.WM_LBUTTONUP, None, tmp)
+    ventana.after(time, Click_stop, tmp)
+
+def Click_stop(tmp):
+    global window
+    win32api.SendMessage(window, win32con.WM_LBUTTONUP, None, tmp)
+
+def key_win(code):
+    global window
+    win32api.SendMessage(window, win32con.WM_KEYDOWN, code, 0)
+    win32api.SendMessage(window, win32con.WM_KEYUP, code, 0)
+
 def Key_press(arg):
     pyautogui.press(arg)
 
